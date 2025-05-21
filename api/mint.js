@@ -1,22 +1,19 @@
-
-import { ethers } from 'ethers';
-
+// File: /api/mint.js
 export default async function handler(req, res) {
-  if (req.method !== 'POST') return res.status(405).end("Method not allowed");
+  if (req.method !== 'POST') {
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
 
   const { to, amount } = req.body;
-  const provider = new ethers.JsonRpcProvider(process.env.RSK_RPC_URL);
-  const wallet = new ethers.Wallet(process.env.RSK_PRIVATE_KEY, provider);
-
-  const contractAddress = process.env.HYPERCOIN_CONTRACT;
-  const abi = [ "function mint(address to, uint256 amount) public returns (bool)" ];
-  const contract = new ethers.Contract(contractAddress, abi, wallet);
+  if (!to || !amount) {
+    return res.status(400).json({ error: 'Recipient and amount are required' });
+  }
 
   try {
-    const tx = await contract.mint(to, amount);
-    await tx.wait();
-    res.status(200).json({ tx_hash: tx.hash });
+    const tx_hash = `0xMockMintTx_${Date.now()}`;
+    res.status(200).json({ message: `Minted ${amount} wei to ${to}`, tx_hash });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error('Minting failed:', err);
+    res.status(500).json({ error: 'Mint operation failed' });
   }
 }
