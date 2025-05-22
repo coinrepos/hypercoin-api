@@ -10,3 +10,6 @@ export default async function handler(req, res) {
   console.log("📊 Event logged:", event, metadata);
   return res.status(200).json({ message: "Event logged", event });
 }
+
+
+
