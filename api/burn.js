@@ -1,19 +1,16 @@
-// File: /api/burn.js
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  const { amount } = req.body;
-  if (!amount) {
-    return res.status(400).json({ error: 'Amount is required' });
-  }
-
   try {
-    const tx_hash = `0xMockBurnTx_${Date.now()}`;
-    res.status(200).json({ message: `Burned ${amount} wei`, tx_hash });
+    const { amount } = req.body;
+
+    // 🔧 Replace with actual smart contract burn logic
+    // const txHash = await smartContract.burn(amount);
+
+    return res.status(200).json({ tx_hash: '0xMockBurnTransactionHash', status: 'success' });
   } catch (err) {
-    console.error('Burn failed:', err);
-    res.status(500).json({ error: 'Burn operation failed' });
+    return res.status(500).json({ error: 'Burn failed', details: err.message });
   }
 }
