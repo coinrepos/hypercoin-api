@@ -1,0 +1,23 @@
+{
+  "name": "hypercoin_api-backend",
+  "version": "1.0.0",
+  "description": "Backend API for HyperOS Dashboard - /api/mint → Mints tokens to a wallet - /api/burn → Burns user-specified amount - /api/setLock → Admin sets lock address",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "ethers": "^5.7.2",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
